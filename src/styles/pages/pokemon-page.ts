@@ -15,7 +15,7 @@ export const PokemonContainer = styled.div`
 
     object-fit: cover;
 
-    filter: saturate(150%);
+    filter: saturate(200%);
 
     pointer-events: none;
     user-select: none;

@@ -8,10 +8,11 @@ import { PokedexCards, PokedexContainer } from "~/styles/pages/pokedex";
 
 const Pokedex: NextPage = () => {
   const [pokelist, setPokelist] = useState([]);
+  const [pagination, setPagination] = useState(50);
   const [search, setSearch] = useState("");
 
   useEffect(() => {
-    fetch(`https://pokeapi.co/api/v2/pokemon?limit=500`)
+    fetch(`https://pokeapi.co/api/v2/pokemon?limit=${pagination}`)
       .then((response) => response.json())
       .then(function (pokemons) {
         pokemons.results.forEach(async function (pokemon) {
@@ -40,11 +41,7 @@ const Pokedex: NextPage = () => {
                 })
                 .map((pokemon) => {
                   return (
-                    <Link
-                      key={pokemon.id}
-                      href={`/pokemon/${pokemon.name}`}
-                      // href={`/pokemon/${pokemon.id}`}
-                    >
+                    <Link key={pokemon.id} href={`/pokedex/${pokemon.name}`}>
                       <li id={pokemon.name}>
                         {pokemon.sprites && (
                           <>
@@ -52,13 +49,14 @@ const Pokedex: NextPage = () => {
                               src={pokemon.sprites.front_default}
                               alt={pokemon.name}
                             />
-                            {/* <img
-                            id="animated"
-                            src={
-                              pokemon.sprites.pokemon?.versions.generation-v.black-white.animated
-                            }
-                            alt={pokemon.name}
-                          /> */}
+                            <img
+                              id="animated"
+                              src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
+                                /-/g,
+                                ""
+                              )}.gif`}
+                              alt={pokemon.name}
+                            />
                           </>
                         )}
 

@@ -79,10 +79,6 @@ const PokemonPage: NextPage = ({ pokemonData }: any) => {
                 )}.png`}
                 alt={pokemon.name}
               />
-              {/* <img
-                src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name}.gif`}
-                alt={pokemon.name}
-                /> */}
             </>
           ) : (
             <PokeballLoading />

@@ -25,6 +25,9 @@ export const PokedexCards = styled.div`
     align-items: center;
     flex: 1 1 350px;
 
+    width: 100%;
+    height: 100px;
+
     border: 0.15rem solid var(--dark-purple);
     border-radius: 1rem;
 
@@ -35,8 +38,8 @@ export const PokedexCards = styled.div`
     transition: 0.25s all ease;
 
     > img {
-      width: 100%;
-      max-width: 100px;
+      flex: 1;
+      width: 100px;
       height: 100%;
 
       border-right: 0.15rem solid var(--dark-purple);
@@ -46,6 +49,19 @@ export const PokedexCards = styled.div`
 
       pointer-events: none;
       user-select: none;
+
+      &#animated {
+        display: none;
+
+        width: 100px;
+        height: 100%;
+
+        padding: 1.45rem;
+
+        filter: saturate(175%);
+
+        object-fit: contain;
+      }
     }
 
     > div {
@@ -81,8 +97,18 @@ export const PokedexCards = styled.div`
     &:hover {
       background: var(--english-violet-50);
 
+      > img {
+        &:not(#animated) {
+          display: none;
+        }
+
+        &#animated {
+          display: block;
+        }
+      }
+
       @media (min-width: 748px) {
-        flex: 1 1 35%;
+        flex: 1 1 400px;
       }
     }
   }
