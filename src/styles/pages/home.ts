@@ -1,11 +1,30 @@
 import styled from "styled-components";
 
+export const LinkHistory = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  gap: 0.5rem;
+
+  > a {
+    text-decoration: none;
+    color: var(--white);
+
+    &:hover {
+      text-decoration: underline;
+      text-underline-offset: 0.25rem;
+    }
+  }
+`;
+
 export const Presentation = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
 
   height: calc(100vh - 80px);
+  padding-bottom: 80px;
 
   gap: 3rem;
 
@@ -203,8 +222,10 @@ export const Services = styled.div`
     padding: 1rem;
     gap: 2rem;
 
+    margin-top: 5rem;
+
     transition: 0.25s all ease;
-    cursor: default;
+    cursor: pointer;
 
     > div {
       display: flex;
@@ -221,9 +242,13 @@ export const Services = styled.div`
       width: 100%;
       max-width: 400px;
       height: 100%;
-      max-height: 300px;
+      max-height: 250px;
 
       object-fit: contain;
+      margin-top: -5rem;
+
+      filter: grayscale(1);
+      transition: 0.25s all ease;
 
       pointer-events: none;
       user-select: none;
@@ -248,6 +273,11 @@ export const Services = styled.div`
 
     &:hover {
       background: var(--english-violet-50);
+
+      > img {
+        filter: unset;
+        padding: 0.5rem;
+      }
     }
   }
 `;

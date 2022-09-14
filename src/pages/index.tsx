@@ -19,9 +19,6 @@ const Home: NextPage = () => {
       <main>
         <Presentation>
           <div className="slogan">
-            {/* <div className="pokeball">
-              <div className="pokeball__button"></div>
-            </div> */}
             <h1 className="title-kanit">Capture essa chance, treinador!</h1>
             <p>O seu limite é definido apenas à sua quantidade de pokebolas.</p>
             <a href="/">
@@ -34,10 +31,15 @@ const Home: NextPage = () => {
           />
         </Presentation>
 
-        <h1 className="title-kanit">Outros serviços</h1>
+        <h1 className="title-kanit">Explore mais</h1>
 
         <Services>
           <div>
+            <img
+              src="../pokemon-assets/single_pokemon_center.png"
+              alt="Centro Pokémon"
+            />
+
             <div>
               <h1 className="title-kanit">Centro Pokémon</h1>
               <p>
@@ -46,24 +48,21 @@ const Home: NextPage = () => {
               </p>
             </div>
 
-            <img
-              src="../pokemon-assets/single_pokemon_center.png"
-              alt="Centro Pokémon"
-            />
-
             <a href="/">Dar uma olhada</a>
           </div>
 
-          <div>
+          <Link href="/pokedex">
             <div>
-              <h1 className="title-kanit">Pokédex</h1>
-              <p>Você pode conhecer cada criaturinha em detalhes.</p>
+              <img src="../pokemon-assets/pokedex.webp" alt="Pokédex" />
+
+              <div>
+                <h1 className="title-kanit">Pokédex</h1>
+                <p>Você pode conhecer cada criaturinha em detalhes.</p>
+              </div>
+
+              <a>Dar uma olhada</a>
             </div>
-
-            <img src="../pokemon-assets/pokedex.webp" alt="Pokédex" />
-
-            <Link href="/pokedex">Dar uma olhada</Link>
-          </div>
+          </Link>
         </Services>
       </main>
     </>

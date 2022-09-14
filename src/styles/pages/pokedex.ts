@@ -9,6 +9,42 @@ export const PokedexContainer = styled.div`
   gap: 3rem;
 `;
 
+export const PokedexSearch = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  width: 100%;
+  max-width: calc(1200px - 2rem);
+
+  border: 0.15rem solid var(--dark-purple);
+  border-radius: 1rem;
+  padding: 0.75rem 1rem;
+
+  gap: 0.5rem;
+
+  color: var(--brand-red);
+  cursor: text;
+
+  > svg {
+    width: 100%;
+    max-width: 1.25rem;
+    height: 100%;
+
+    cursor: pointer;
+  }
+
+  > input {
+    width: 100%;
+    background: unset;
+    border: unset;
+    outline: none;
+    font-size: 1rem;
+
+    color: var(--white);
+  }
+`;
+
 export const PokedexCards = styled.div`
   display: flex;
   flex-wrap: wrap;
@@ -16,10 +52,13 @@ export const PokedexCards = styled.div`
   align-items: center;
 
   list-style: none;
+  width: 100%;
 
   gap: 1rem;
 
   > li {
+    position: relative;
+
     display: flex;
     justify-content: flex-start;
     align-items: center;
@@ -39,6 +78,7 @@ export const PokedexCards = styled.div`
 
     > img {
       flex: 1;
+      flex-basis: 100px;
       width: 100px;
       height: 100%;
 
@@ -46,20 +86,24 @@ export const PokedexCards = styled.div`
       background: var(--english-violet-50);
 
       object-fit: cover;
+      padding: 0.5rem;
 
       pointer-events: none;
       user-select: none;
 
       &#animated {
+        position: absolute;
+        top: 0;
+        left: 0;
+
         display: none;
 
-        width: 100px;
+        width: 98px;
         height: 100%;
 
         padding: 1.45rem;
 
         filter: saturate(175%);
-
         object-fit: contain;
       }
     }
@@ -73,13 +117,14 @@ export const PokedexCards = styled.div`
         text-transform: capitalize;
       }
 
-      > p {
+      > ul {
         display: flex;
 
         font-size: 0.75rem;
         text-transform: uppercase;
 
         gap: 0.5rem;
+        list-style: none;
       }
     }
 
@@ -99,7 +144,7 @@ export const PokedexCards = styled.div`
 
       > img {
         &:not(#animated) {
-          display: none;
+          visibility: hidden;
         }
 
         &#animated {

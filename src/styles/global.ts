@@ -28,6 +28,17 @@ export const GlobalStyles = createGlobalStyle`
         font-size: 1.5rem;
       }
     }
+
+    .subtitle-kanit {
+      font-family: "Kanit";
+      font-weight: normal;
+      font-size: 1.5rem;
+      line-height: 100%;
+
+      @media (max-width: 978px) {
+        font-size: 1.25rem;
+      }
+    }
   }
   main {
     display: flex;
