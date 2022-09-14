@@ -13,7 +13,6 @@ export const PokeballLoadingContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  animation: ${loading} 2s infinite;
 
   width: 100%;
   max-width: 200px;
@@ -21,4 +20,8 @@ export const PokeballLoadingContainer = styled.div`
   margin: 0 auto;
 
   overflow: hidden;
+
+  > svg {
+    animation: ${loading} 2s infinite;
+  }
 `;

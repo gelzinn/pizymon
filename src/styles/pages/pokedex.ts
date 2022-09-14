@@ -139,21 +139,70 @@ export const PokedexCards = styled.div`
       font-size: 0.85rem;
     }
 
-    &:hover {
-      background: var(--english-violet-50);
+    &:not(.loading) {
+      &:hover {
+        background: var(--english-violet-50);
 
-      > img {
-        &:not(#animated) {
-          visibility: hidden;
+        > img {
+          &:not(#animated) {
+            visibility: hidden;
+          }
+
+          &#animated {
+            display: block;
+          }
         }
 
-        &#animated {
-          display: block;
+        @media (min-width: 748px) {
+          flex: 1 1 400px;
         }
       }
+    }
 
-      @media (min-width: 748px) {
-        flex: 1 1 400px;
+    &.loading {
+      #pokeballLoading {
+        width: 100%;
+        max-width: 100px;
+
+        padding: 1.75rem;
+
+        border-right: 0.15rem solid var(--dark-purple);
+        background: var(--english-violet-50);
+      }
+
+      > div:not(#pokeballLoading) {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-start;
+
+        gap: 0.5rem;
+
+        width: 100%;
+        height: 75%;
+
+        margin-right: 1rem;
+
+        > div {
+          width: 100%;
+          height: 20px;
+
+          border-radius: 1rem;
+          background: var(--english-violet-50);
+        }
+
+        > ul {
+          width: 50%;
+          height: 20px;
+
+          > div {
+            width: 100%;
+            height: 20px;
+
+            border-radius: 1rem;
+            background: var(--english-violet-50);
+          }
+        }
       }
     }
   }

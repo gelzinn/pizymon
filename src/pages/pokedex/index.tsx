@@ -227,104 +227,127 @@ const Pokedex: NextPage = () => {
               )}
             </>
           )}
-          {pokelist ? (
-            <>
-              <PokedexCards>
-                {pokelist.sort().map((pokemon) => {
-                  return (
-                    <Link key={pokemon.id} href={`/pokedex/${pokemon.name}`}>
-                      <li id={pokemon.name}>
-                        {pokemon.sprites && (
-                          <>
-                            <img
-                              src={pokemon.sprites.front_default}
-                              alt={pokemon.name}
-                            />
-                            {(() => {
-                              switch (pokemon.name) {
-                                case pokemon.name.includes("mega"):
-                                  return (
-                                    <img
-                                      id="animated"
-                                      src={`http://play.pokemonshowdown.com/sprites/xyani/${
-                                        pokemon.name.split("-")[0] +
-                                        "-" +
-                                        pokemon.name
-                                          .toString()
-                                          .split("-")
-                                          .slice(1, 3)
-                                          .join("")
-                                      }.gif`}
-                                      alt={pokemon.name}
-                                    />
-                                  );
-
-                                case pokemon.name.includes("normal"):
-                                  return (
-                                    <img
-                                      id="animated"
-                                      src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
-                                        "normal",
-                                        ""
-                                      )}.gif`}
-                                      alt={pokemon.name}
-                                    />
-                                  );
-
-                                case pokemon.name.includes("rock-star"):
-                                  return (
-                                    <img
-                                      id="animated"
-                                      src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
-                                        "rock-star",
-                                        "rockstar"
-                                      )}.gif`}
-                                      alt={pokemon.name}
-                                    />
-                                  );
-
-                                default:
-                                  return (
-                                    <img
-                                      id="animated"
-                                      src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
-                                        /-/g,
-                                        ""
-                                      )}.gif`}
-                                      alt={pokemon.name}
-                                    />
-                                  );
-                              }
-                            })()}
-                          </>
-                        )}
+          {/* {pokelist ? ( */}
+          <>
+            <PokedexCards>
+              {pokelist
+                .sort((a, b) => {
+                  if (a < b) {
+                    return -1;
+                  } else if (a > b) {
+                    return 1;
+                  } else {
+                    return 0;
+                  }
+                })
+                .map((pokemon, index: number) => {
+                  if (!pokemon && !pokemon.image) {
+                    return (
+                      <li key={`loading-${index}`} className="loading">
+                        <PokeballLoading />
 
                         <div>
-                          <span>{pokemon.name.replace(/-/g, " ")}</span>
+                          <div></div>
                           <ul>
-                            {pokemon.types.map((singleType) => {
-                              return (
-                                <li key={singleType.type.name}>
-                                  {singleType.type.name}
-                                </li>
-                              );
-                            })}
+                            <div></div>
+                            <div></div>
                           </ul>
                         </div>
-                        <i>{pokemon.id}</i>
                       </li>
-                    </Link>
-                  );
+                    );
+                  } else {
+                    return (
+                      <Link key={pokemon.id} href={`/pokedex/${pokemon.name}`}>
+                        <li id={pokemon.name}>
+                          {pokemon.sprites && (
+                            <>
+                              <img
+                                src={pokemon.sprites.front_default}
+                                alt={pokemon.name}
+                              />
+                              {(() => {
+                                switch (pokemon.name) {
+                                  case pokemon.name.includes("mega"):
+                                    return (
+                                      <img
+                                        id="animated"
+                                        src={`http://play.pokemonshowdown.com/sprites/xyani/${
+                                          pokemon.name.split("-")[0] +
+                                          "-" +
+                                          pokemon.name
+                                            .toString()
+                                            .split("-")
+                                            .slice(1, 3)
+                                            .join("")
+                                        }.gif`}
+                                        alt={pokemon.name}
+                                      />
+                                    );
+
+                                  case pokemon.name.includes("normal"):
+                                    return (
+                                      <img
+                                        id="animated"
+                                        src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
+                                          "normal",
+                                          ""
+                                        )}.gif`}
+                                        alt={pokemon.name}
+                                      />
+                                    );
+
+                                  case pokemon.name.includes("rock-star"):
+                                    return (
+                                      <img
+                                        id="animated"
+                                        src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
+                                          "rock-star",
+                                          "rockstar"
+                                        )}.gif`}
+                                        alt={pokemon.name}
+                                      />
+                                    );
+
+                                  default:
+                                    return (
+                                      <img
+                                        id="animated"
+                                        src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
+                                          /-/g,
+                                          ""
+                                        )}.gif`}
+                                        alt={pokemon.name}
+                                      />
+                                    );
+                                }
+                              })()}
+                            </>
+                          )}
+
+                          <div>
+                            <span>{pokemon.name.replace(/-/g, " ")}</span>
+                            <ul>
+                              {pokemon.types.map((singleType) => {
+                                return (
+                                  <li key={singleType.type.name}>
+                                    {singleType.type.name}
+                                  </li>
+                                );
+                              })}
+                            </ul>
+                          </div>
+                          <i>{pokemon.id}</i>
+                        </li>
+                      </Link>
+                    );
+                  }
                 })}
-              </PokedexCards>
-              <div
-                style={{ visibility: "hidden" }}
-                ref={loadMorePokemons}
-              ></div>
-            </>
-          ) : (
-            <PokeballLoading />
-          )}
+            </PokedexCards>
+            <div style={{ visibility: "hidden" }} ref={loadMorePokemons}></div>
+          </>
+          {/*  ) : (
+             <PokeballLoading />
+           )} */}
         </PokedexContainer>
       </main>
     </>
