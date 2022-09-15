@@ -34,6 +34,37 @@ export const PokemonContainer = styled.div`
 
       &.pokemon {
         padding: 2rem 0;
+        position: relative;
+
+        > i {
+          position: absolute;
+
+          font-size: 18rem;
+          font-weight: 800;
+
+          line-height: 80%;
+
+          color: transparent;
+          -webkit-text-stroke-width: 1px;
+          -webkit-text-stroke-color: var(--english-violet);
+
+          mask-image: linear-gradient(to top, transparent, black, transparent);
+
+          @media (min-width: 978px) {
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+          }
+
+          @media (max-width: 978px) {
+            line-height: 100%;
+
+            top: 0;
+
+            font-size: 50vw;
+            mask-image: linear-gradient(to bottom, black, transparent);
+          }
+        }
 
         @media (max-width: 978px) {
           padding: 1rem;
@@ -64,6 +95,8 @@ export const PokemonContainer = styled.div`
 
         width: 100%;
         list-style: none;
+
+        z-index: 2;
 
         > p {
           display: flex;
@@ -196,6 +229,27 @@ export const PokemonContainer = styled.div`
         > div {
           display: flex;
 
+          &#base-stats {
+            @media (min-width: 978px) {
+              flex-wrap: wrap;
+
+              > div {
+                flex: 1 1 180px;
+              }
+            }
+
+            @media (max-width: 978px) {
+              flex-direction: column;
+            }
+          }
+
+          /* &#with-separator {
+            > div:not(:first-child) {
+              border-left: 0.15rem solid var(--dark-purple);
+              padding-left: 1rem;
+            }
+          } */
+
           > div {
             display: flex;
             flex-direction: column;
@@ -291,6 +345,7 @@ export const PokemonContainer = styled.div`
 
             > div {
               background: var(--dark-purple);
+              border-radius: 1rem;
             }
           }
         }

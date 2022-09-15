@@ -55,6 +55,7 @@ const PokemonPage: NextPage = ({
   const [activeTab, setActiveTab] = useState<PokemonTabs>("biography");
 
   const [pokemonStats, setPokemonStats] = useState([]);
+  const [pokemonBio, setPokemonBio] = useState("");
   const [genderPercentage, setGenderPercentage] = useState(0);
 
   useEffect(() => {
@@ -101,6 +102,21 @@ const PokemonPage: NextPage = ({
             : -1
         );
       }
+
+      const getTranslatedBio = async () => {
+        const response = await fetch(
+          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q= + ${
+            pokemonSpecies?.flavor_text_entries?.find(
+              (text) => text.language.name === "en"
+            )?.flavor_text
+          }`
+        );
+        const data = await response.json();
+
+        setPokemonBio(data[0][0][0]);
+      };
+
+      getTranslatedBio();
     }
   }, [pokemonSpecies]);
 
@@ -146,6 +162,7 @@ const PokemonPage: NextPage = ({
             <>
               <div className="pokemon-info">
                 <div className="pokemon">
+                  <i>{pokemon.id}</i>
                   <div className="info">
                     <h1 className="title-kanit">{pokemon.name}</h1>
                     <p>
@@ -203,11 +220,12 @@ const PokemonPage: NextPage = ({
                                   <>
                                     <span>Sobre</span>
                                     <p id="not-captalize">
-                                      {
-                                        pokemonSpecies?.flavor_text_entries?.find(
-                                          (text) => text.language.name === "en"
-                                        )?.flavor_text
-                                      }
+                                      {pokemonBio
+                                        ? pokemonBio
+                                        : pokemonSpecies?.flavor_text_entries?.find(
+                                            (text) =>
+                                              text.language.name === "en"
+                                          )?.flavor_text}
                                     </p>
                                     <span>Espécies</span>
                                     <p>
@@ -217,7 +235,7 @@ const PokemonPage: NextPage = ({
                                         )?.genus
                                       }
                                     </p>
-                                    <div>
+                                    <div id="with-separator">
                                       {" "}
                                       <div>
                                         <span>Altura</span>
@@ -245,7 +263,7 @@ const PokemonPage: NextPage = ({
                                         )
                                       )}
                                     </ul>
-                                    <div>
+                                    <div id="with-separator">
                                       {genderPercentage === -1 ? (
                                         <>
                                           <div>
@@ -279,7 +297,7 @@ const PokemonPage: NextPage = ({
                                         </>
                                       )}
                                     </div>
-                                    <div>
+                                    <div id="base-stats">
                                       <div>
                                         <span>Porcentagem de Captura</span>
                                         <p>
@@ -326,7 +344,11 @@ const PokemonPage: NextPage = ({
                                               <div
                                                 style={{
                                                   padding: "2.5px 0px",
-                                                  width: "30.3951%",
+                                                  width: `${
+                                                    (status.min /
+                                                      (status.max - 75)) *
+                                                    100
+                                                  }%`,
                                                 }}
                                               ></div>
                                             </div>
