@@ -18,6 +18,11 @@ export const GlobalStyles = createGlobalStyle`
     background-size: 3.125rem 1.875rem;
     overflow-x: hidden;
 
+    &.open {
+      height: 100vh;
+      overflow: hidden;
+    }
+
     .title-kanit {
       font-family: "Kanit";
       font-weight: normal;
