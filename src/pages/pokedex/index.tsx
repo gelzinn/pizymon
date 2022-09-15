@@ -227,21 +227,12 @@ const Pokedex: NextPage = () => {
               )}
             </>
           )}
-          {/* {pokelist ? ( */}
           <>
             <PokedexCards>
               {pokelist
-                .sort((a, b) => {
-                  if (a < b) {
-                    return -1;
-                  } else if (a > b) {
-                    return 1;
-                  } else {
-                    return 0;
-                  }
-                })
+                .sort((a, b) => a[1] - b[1])
                 .map((pokemon, index: number) => {
-                  if (!pokemon && !pokemon.image) {
+                  if (!pokemon || pokemon === null) {
                     return (
                       <li key={`loading-${index}`} className="loading">
                         <PokeballLoading />
@@ -274,11 +265,9 @@ const Pokedex: NextPage = () => {
                                         src={`http://play.pokemonshowdown.com/sprites/xyani/${
                                           pokemon.name.split("-")[0] +
                                           "-" +
-                                          pokemon.name
-                                            .toString()
-                                            .split("-")
-                                            .slice(1, 3)
-                                            .join("")
+                                          pokemon.name.replace(
+                                            `${pokemon.name}, ""`
+                                          )
                                         }.gif`}
                                         alt={pokemon.name}
                                       />
@@ -345,9 +334,6 @@ const Pokedex: NextPage = () => {
             </PokedexCards>
             <div style={{ visibility: "hidden" }} ref={loadMorePokemons}></div>
           </>
-          {/*  ) : (
-             <PokeballLoading />
-           )} */}
         </PokedexContainer>
       </main>
     </>

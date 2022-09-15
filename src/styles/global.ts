@@ -55,6 +55,10 @@ export const GlobalStyles = createGlobalStyle`
     > div {
         width: 100%;
         padding: 3rem 1rem;
+
+        @media (max-width: 978px) {
+          padding: 1rem;
+        }
     }
   }
   html {

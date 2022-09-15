@@ -20,7 +20,10 @@ const Home: NextPage = () => {
         <Presentation>
           <div className="slogan">
             <h1 className="title-kanit">Capture essa chance, treinador!</h1>
-            <p>O seu limite é definido apenas à sua quantidade de pokebolas.</p>
+            <p>
+              Pare apenas quando suas pokebolas acabarem, porque seus pokémons
+              não vão!
+            </p>
             <a href="/">
               Começar minha jornada <Play weight="fill" />
             </a>
@@ -31,7 +34,7 @@ const Home: NextPage = () => {
           />
         </Presentation>
 
-        <h1 className="title-kanit">Explore mais</h1>
+        <h1 className="title-kanit">Mais do mundo Pokémon</h1>
 
         <Services>
           <div>

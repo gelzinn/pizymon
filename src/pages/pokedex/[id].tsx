@@ -55,8 +55,10 @@ const PokemonPage: NextPage = ({
   const [activeTab, setActiveTab] = useState<PokemonTabs>("biography");
 
   const [pokemonStats, setPokemonStats] = useState([]);
-  const [pokemonBio, setPokemonBio] = useState("");
   const [genderPercentage, setGenderPercentage] = useState(0);
+
+  const [pokemonBio, setPokemonBio] = useState("");
+  const [pokemonSpecieType, setPokemonSpecieType] = useState("");
 
   useEffect(() => {
     if (pokemonData) {
@@ -103,20 +105,30 @@ const PokemonPage: NextPage = ({
         );
       }
 
-      const getTranslatedBio = async () => {
-        const response = await fetch(
+      const getTranslations = async () => {
+        const responseBio = await fetch(
           `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q= + ${
             pokemonSpecies?.flavor_text_entries?.find(
               (text) => text.language.name === "en"
             )?.flavor_text
           }`
         );
-        const data = await response.json();
+        const dataBio = await responseBio.json();
 
-        setPokemonBio(data[0][0][0]);
+        setPokemonBio(dataBio[0][0][0]);
+
+        const responseSpecieType = await fetch(
+          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q= + ${
+            pokemonSpecies?.genera?.find((gen) => gen.language.name === "en")
+              ?.genus
+          }`
+        );
+        const dataSpecieType = await responseSpecieType.json();
+
+        setPokemonSpecieType(dataSpecieType[0][0][0]);
       };
 
-      getTranslatedBio();
+      getTranslations();
     }
   }, [pokemonSpecies]);
 
@@ -229,11 +241,11 @@ const PokemonPage: NextPage = ({
                                     </p>
                                     <span>Espécies</span>
                                     <p>
-                                      {
-                                        pokemonSpecies.genera.find(
-                                          (gen) => gen.language.name === "en"
-                                        )?.genus
-                                      }
+                                      {pokemonSpecieType
+                                        ? pokemonSpecieType
+                                        : pokemonSpecies.genera.find(
+                                            (gen) => gen.language.name === "en"
+                                          )?.genus}
                                     </p>
                                     <div id="with-separator">
                                       {" "}
