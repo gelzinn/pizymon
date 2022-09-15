@@ -29,7 +29,7 @@ export const PokemonContainer = styled.div`
       justify-content: flex-start;
       align-items: center;
 
-      /* gap: 5rem; */
+      gap: 2rem;
       width: 100%;
 
       &.pokemon {
@@ -342,13 +342,17 @@ export const PokemonContainer = styled.div`
             width: 100%;
             height: 100%;
 
-            border: 0.15rem solid var(--dark-purple);
             border-radius: 1rem;
-            /* background: var(--english-violet-50); */
+            box-shadow: 0 1px 0 0.5px inset var(--dark-purple),
+              0 -1px 0 0.5px inset var(--dark-purple);
 
             > div {
-              background: var(--dark-purple);
-              border-radius: 1rem;
+              background: linear-gradient(
+                to right,
+                transparent,
+                var(--english-violet)
+              );
+              border-radius: 0.25rem;
             }
           }
         }

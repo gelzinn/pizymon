@@ -59,18 +59,18 @@ const Pokedex: NextPage = () => {
 
       const delayDebounce = setTimeout(() => {
         const searchPokemon = async () => {
-          fetch(`https://pokeapi.co/api/v2/pokemon/${search}`).then(
-            async (response) => {
-              if (response.status === 200) {
-                const res = await response.json();
-                setPokeSearched(res);
-              } else {
-                setPokeSearchedError(true);
-                setPokeSearched(null);
-                setSearch(null);
-              }
+          fetch(
+            `https://pokeapi.co/api/v2/pokemon/${search.toLowerCase()}`
+          ).then(async (response) => {
+            if (response.status === 200) {
+              const res = await response.json();
+              setPokeSearched(res);
+            } else {
+              setPokeSearchedError(true);
+              setPokeSearched(null);
+              setSearch(null);
             }
-          );
+          });
         };
 
         searchPokemon();
@@ -100,7 +100,7 @@ const Pokedex: NextPage = () => {
               type="text"
               ref={SearchBarRef}
               placeholder="Encontre seu pokémon..."
-              onChange={(e) => setSearch(e.target.value)}
+              onChange={(e) => setSearch(e.target.value.toLowerCase())}
             />
             {search && (
               <X
@@ -133,25 +133,43 @@ const Pokedex: NextPage = () => {
                                   alt={pokeSearched.name}
                                 />
                                 {(() => {
-                                  switch (pokeSearched.name) {
-                                    case pokeSearched.name.includes("mega"):
+                                  function removeFirstWord(str) {
+                                    const indexOfSpace = str.indexOf(" ");
+
+                                    if (indexOfSpace === -1) {
+                                      return "";
+                                    }
+
+                                    return str.substring(indexOfSpace + 1);
+                                  }
+
+                                  if (
+                                    pokeSearched.name.includes("-mega") ||
+                                    pokeSearched.name.includes("normal") ||
+                                    pokeSearched.name.includes("rock-star")
+                                  ) {
+                                    if (pokeSearched.name.includes("-mega")) {
                                       return (
                                         <img
                                           id="animated"
                                           src={`http://play.pokemonshowdown.com/sprites/xyani/${
-                                            pokeSearched.name.split("-")[0] +
-                                            "-" +
                                             pokeSearched.name
-                                              .toString()
-                                              .split("-")
-                                              .slice(1, 3)
-                                              .join("")
+                                              .replace(/-/g, " ")
+                                              .split(" ")[0] +
+                                            "-" +
+                                            removeFirstWord(
+                                              pokeSearched.name.replace(
+                                                /-/g,
+                                                " "
+                                              )
+                                            ).replace(/\s+/g, "")
                                           }.gif`}
                                           alt={pokeSearched.name}
                                         />
                                       );
+                                    }
 
-                                    case pokeSearched.name.includes("normal"):
+                                    if (pokeSearched.name.includes("normal")) {
                                       return (
                                         <img
                                           id="animated"
@@ -162,10 +180,11 @@ const Pokedex: NextPage = () => {
                                           alt={pokeSearched.name}
                                         />
                                       );
+                                    }
 
-                                    case pokeSearched.name.includes(
-                                      "rock-star"
-                                    ):
+                                    if (
+                                      pokeSearched.name.includes("rock-star")
+                                    ) {
                                       return (
                                         <img
                                           id="animated"
@@ -176,18 +195,15 @@ const Pokedex: NextPage = () => {
                                           alt={pokeSearched.name}
                                         />
                                       );
-
-                                    default:
-                                      return (
-                                        <img
-                                          id="animated"
-                                          src={`http://play.pokemonshowdown.com/sprites/xyani/${pokeSearched.name.replace(
-                                            /-/g,
-                                            ""
-                                          )}.gif`}
-                                          alt={pokeSearched.name}
-                                        />
-                                      );
+                                    }
+                                  } else {
+                                    return (
+                                      <img
+                                        id="animated"
+                                        src={`http://play.pokemonshowdown.com/sprites/xyani/${pokeSearched.name}.gif`}
+                                        alt={pokeSearched.name}
+                                      />
+                                    );
                                   }
                                 })()}
                               </>
@@ -230,7 +246,7 @@ const Pokedex: NextPage = () => {
           <>
             <PokedexCards>
               {pokelist
-                .sort((a, b) => a[1] - b[1])
+                .sort((a, b) => a.id - b.id)
                 .map((pokemon, index: number) => {
                   if (!pokemon || pokemon === null) {
                     return (
@@ -257,23 +273,40 @@ const Pokedex: NextPage = () => {
                                 alt={pokemon.name}
                               />
                               {(() => {
-                                switch (pokemon.name) {
-                                  case pokemon.name.includes("mega"):
+                                function removeFirstWord(str) {
+                                  const indexOfSpace = str.indexOf(" ");
+
+                                  if (indexOfSpace === -1) {
+                                    return "";
+                                  }
+
+                                  return str.substring(indexOfSpace + 1);
+                                }
+
+                                if (
+                                  pokemon.name.includes("-mega") ||
+                                  pokemon.name.includes("normal") ||
+                                  pokemon.name.includes("rock-star")
+                                ) {
+                                  if (pokemon.name.includes("-mega")) {
                                     return (
                                       <img
                                         id="animated"
                                         src={`http://play.pokemonshowdown.com/sprites/xyani/${
-                                          pokemon.name.split("-")[0] +
+                                          pokemon.name
+                                            .replace(/-/g, " ")
+                                            .split(" ")[0] +
                                           "-" +
-                                          pokemon.name.replace(
-                                            `${pokemon.name}, ""`
-                                          )
+                                          removeFirstWord(
+                                            pokemon.name.replace(/-/g, " ")
+                                          ).replace(/\s+/g, "")
                                         }.gif`}
                                         alt={pokemon.name}
                                       />
                                     );
+                                  }
 
-                                  case pokemon.name.includes("normal"):
+                                  if (pokemon.name.includes("normal")) {
                                     return (
                                       <img
                                         id="animated"
@@ -284,8 +317,9 @@ const Pokedex: NextPage = () => {
                                         alt={pokemon.name}
                                       />
                                     );
+                                  }
 
-                                  case pokemon.name.includes("rock-star"):
+                                  if (pokemon.name.includes("rock-star")) {
                                     return (
                                       <img
                                         id="animated"
@@ -296,18 +330,15 @@ const Pokedex: NextPage = () => {
                                         alt={pokemon.name}
                                       />
                                     );
-
-                                  default:
-                                    return (
-                                      <img
-                                        id="animated"
-                                        src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
-                                          /-/g,
-                                          ""
-                                        )}.gif`}
-                                        alt={pokemon.name}
-                                      />
-                                    );
+                                  }
+                                } else {
+                                  return (
+                                    <img
+                                      id="animated"
+                                      src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name}.gif`}
+                                      alt={pokemon.name}
+                                    />
+                                  );
                                 }
                               })()}
                             </>

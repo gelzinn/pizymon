@@ -12,7 +12,9 @@ export const getStaticPaths: GetStaticPaths = async () => {
   const data = await response.json();
 
   const paths = data.results.map((pokemon: any) => {
-    return { params: { id: pokemon.name } };
+    return {
+      params: { id: pokemon.name.toLowerCase().trim() },
+    };
   });
 
   return {
@@ -164,7 +166,10 @@ const PokemonPage: NextPage = ({
         <PokemonContainer>
           {pokemon && pokemon.name && (
             <LinkHistory>
-              <a href="/pokedex">Pokédex</a> <CaretRight />{" "}
+              <a href="/pokedex">
+                <b>Pokédex</b>
+              </a>{" "}
+              <CaretRight />{" "}
               {pokemon.name[0].toUpperCase() + pokemon.name.substring(1)}
             </LinkHistory>
           )}
