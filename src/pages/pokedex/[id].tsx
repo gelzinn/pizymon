@@ -107,11 +107,10 @@ const PokemonPage: NextPage = ({
 
       const getTranslations = async () => {
         const responseBio = await fetch(
-          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q= + ${
-            pokemonSpecies?.flavor_text_entries?.find(
-              (text) => text.language.name === "en"
-            )?.flavor_text
-          }`
+          `https://translate.googleapis.com/translate_a/single?client=gtx&sl=en&tl=pt&dt=t&q= + ${pokemonSpecies?.flavor_text_entries
+            ?.find((text) => text.language.name === "en")
+            ?.flavor_text.trim()
+            .replace(/^[A-zÀ-ÖØ-öø-ÿ]+$/g, "")}`
         );
         const dataBio = await responseBio.json();
 

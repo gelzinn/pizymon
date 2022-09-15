@@ -42,6 +42,9 @@ export const PokemonContainer = styled.div`
           font-size: 18rem;
           font-weight: 800;
 
+          width: 100%;
+          text-align: center;
+
           line-height: 80%;
 
           color: transparent;
