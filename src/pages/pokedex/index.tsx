@@ -144,9 +144,17 @@ const Pokedex: NextPage = () => {
                                   }
 
                                   if (
-                                    pokeSearched.name.includes("-mega") ||
-                                    pokeSearched.name.includes("normal") ||
-                                    pokeSearched.name.includes("rock-star")
+                                    pokeSearched.name.includes(
+                                      "-mega",
+                                      "-incarnate",
+                                      "-ordinary",
+                                      "-shield",
+                                      "-male",
+                                      "-average",
+                                      "-normal",
+                                      "-land",
+                                      "-altered"
+                                    )
                                   ) {
                                     if (pokeSearched.name.includes("-mega")) {
                                       return (
@@ -169,14 +177,26 @@ const Pokedex: NextPage = () => {
                                       );
                                     }
 
-                                    if (pokeSearched.name.includes("normal")) {
+                                    if (
+                                      pokeSearched.name.includes(
+                                        "-incarnate",
+                                        "-ordinary",
+                                        "-shield",
+                                        "-male",
+                                        "-average",
+                                        "-normal",
+                                        "-land",
+                                        "-altered"
+                                      )
+                                    ) {
                                       return (
                                         <img
                                           id="animated"
-                                          src={`http://play.pokemonshowdown.com/sprites/xyani/${pokeSearched.name.replace(
-                                            "normal",
-                                            ""
-                                          )}.gif`}
+                                          src={`http://play.pokemonshowdown.com/sprites/xyani/${
+                                            pokeSearched.name
+                                              .replace(/-/g, " ")
+                                              .split(" ")[0]
+                                          }.gif`}
                                           alt={pokeSearched.name}
                                         />
                                       );
@@ -284,9 +304,17 @@ const Pokedex: NextPage = () => {
                                 }
 
                                 if (
-                                  pokemon.name.includes("-mega") ||
-                                  pokemon.name.includes("normal") ||
-                                  pokemon.name.includes("rock-star")
+                                  pokemon.name.includes(
+                                    "-mega",
+                                    "-incarnate",
+                                    "-ordinary",
+                                    "-shield",
+                                    "-male",
+                                    "-average",
+                                    "-normal",
+                                    "-land",
+                                    "-altered"
+                                  )
                                 ) {
                                   if (pokemon.name.includes("-mega")) {
                                     return (
@@ -306,14 +334,26 @@ const Pokedex: NextPage = () => {
                                     );
                                   }
 
-                                  if (pokemon.name.includes("normal")) {
+                                  if (
+                                    pokemon.name.includes(
+                                      "-incarnate",
+                                      "-ordinary",
+                                      "-shield",
+                                      "-male",
+                                      "-average",
+                                      "-normal",
+                                      "-land",
+                                      "-altered"
+                                    )
+                                  ) {
                                     return (
                                       <img
                                         id="animated"
-                                        src={`http://play.pokemonshowdown.com/sprites/xyani/${pokemon.name.replace(
-                                          "normal",
-                                          ""
-                                        )}.gif`}
+                                        src={`http://play.pokemonshowdown.com/sprites/xyani/${
+                                          pokemon.name
+                                            .replace(/-/g, " ")
+                                            .split(" ")[0]
+                                        }.gif`}
                                         alt={pokemon.name}
                                       />
                                     );
