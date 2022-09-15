@@ -46,7 +46,7 @@ export const PokemonContainer = styled.div`
         object-fit: contain;
 
         filter: saturate(200%);
-        padding: 4rem;
+        padding: 0 4rem;
 
         pointer-events: none;
         user-select: none;
@@ -90,9 +90,6 @@ export const PokemonContainer = styled.div`
       max-width: 50%;
 
       flex: 1;
-
-      border-left: 0.15rem solid var(--dark-purple);
-      border-top-right-radius: 1rem;
 
       gap: unset;
       overflow: hidden;
@@ -181,7 +178,7 @@ export const PokemonContainer = styled.div`
         > p {
           color: var(--support);
 
-          &:not(#biography) {
+          &:not(#not-captalize) {
             text-transform: capitalize;
           }
         }
@@ -241,6 +238,67 @@ export const PokemonContainer = styled.div`
             }
           }
         }
+
+        .pokemon-stats {
+          display: flex;
+          flex-direction: column;
+
+          width: 100%;
+          height: 100%;
+
+          .stats-container {
+            display: grid;
+            grid-template-columns: 30fr 10fr 40fr 10fr;
+            justify-content: center;
+            align-items: center;
+
+            gap: 0;
+
+            > span {
+              font-size: 1rem;
+              text-transform: uppercase;
+
+              list-style: none;
+            }
+
+            > p {
+              align-items: center;
+
+              &:first-child {
+                justify-content: flex-start;
+                margin-right: 0.5rem;
+              }
+
+              &:last-child {
+                margin-left: 0.5rem;
+                justify-content: flex-end;
+              }
+            }
+
+            &:not(:first-child) {
+              margin-top: 1rem;
+            }
+          }
+
+          .bar-quantity {
+            display: flex;
+            width: 100%;
+            height: 100%;
+
+            border: 0.15rem solid var(--dark-purple);
+            border-radius: 1rem;
+            /* background: var(--english-violet-50); */
+
+            > div {
+              background: var(--dark-purple);
+            }
+          }
+        }
+      }
+
+      @media (min-width: 978px) {
+        border-left: 0.15rem solid var(--dark-purple);
+        border-top-right-radius: 1rem;
       }
 
       @media (max-width: 978px) {

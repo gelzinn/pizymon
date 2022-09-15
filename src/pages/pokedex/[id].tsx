@@ -54,7 +54,7 @@ const PokemonPage: NextPage = ({
   const [pokemonSpecies, setPokemonSpecies] = useState<any>([]);
   const [activeTab, setActiveTab] = useState<PokemonTabs>("biography");
 
-  const [pokemonBiography, setPokemonBiography] = useState("");
+  const [pokemonStats, setPokemonStats] = useState([]);
   const [genderPercentage, setGenderPercentage] = useState(0);
 
   useEffect(() => {
@@ -62,6 +62,21 @@ const PokemonPage: NextPage = ({
       setPokemon(pokemonData);
     }
   }, [pokemonData]);
+
+  useEffect(() => {
+    if (pokemon) {
+      setPokemonStats(
+        pokemon?.stats?.map((resource) => ({
+          name: transformStatNames(resource.stat.name),
+          min: resource.base_stat,
+          max:
+            resource.stat.name === "hp"
+              ? Math.round(Number(resource.base_stat) * 2 + 204)
+              : Math.round((Number(resource.base_stat) * 2 + 99) * 1.1),
+        }))
+      );
+    }
+  }, [pokemon]);
 
   useEffect(() => {
     if (pokemonStatsSpeciesData) {
@@ -88,6 +103,21 @@ const PokemonPage: NextPage = ({
       }
     }
   }, [pokemonSpecies]);
+
+  const transformStatNames = (statName: string) => {
+    const map: string[][] = [
+      ["special-attack", "sp. atk"],
+      ["special-defense", "sp. def"],
+    ];
+    let transformed = statName;
+    map.forEach(([a, b]) => {
+      if (a === statName) {
+        transformed = b;
+      }
+    });
+
+    return transformed;
+  };
 
   return (
     <>
@@ -147,12 +177,14 @@ const PokemonPage: NextPage = ({
                     >
                       Biografia
                     </span>
-                    <span
-                      className={activeTab === "stats" ? "selected" : null}
-                      onClick={() => setActiveTab("stats")}
-                    >
-                      Estatísticas
-                    </span>
+                    {pokemonStats && (
+                      <span
+                        className={activeTab === "stats" ? "selected" : null}
+                        onClick={() => setActiveTab("stats")}
+                      >
+                        Estatísticas
+                      </span>
+                    )}
                     <span
                       className={activeTab === "evolutions" ? "selected" : null}
                       onClick={() => setActiveTab("evolutions")}
@@ -170,7 +202,7 @@ const PokemonPage: NextPage = ({
                                 return (
                                   <>
                                     <span>Sobre</span>
-                                    <p id="biography">
+                                    <p id="not-captalize">
                                       {
                                         pokemonSpecies?.flavor_text_entries?.find(
                                           (text) => text.language.name === "en"
@@ -277,7 +309,57 @@ const PokemonPage: NextPage = ({
                                 );
 
                               case "stats":
-                                return <p>Em breve</p>;
+                                return (
+                                  <>
+                                    <span>Estatísticas bases</span>
+                                    <div className="pokemon-stats">
+                                      {pokemonStats?.map((status) => {
+                                        return (
+                                          <div
+                                            className="stats-container"
+                                            id={status.name}
+                                            key={`status-${status.name}`}
+                                          >
+                                            <span>{status.name}</span>
+                                            <p>{status.min}</p>
+                                            <div className="bar-quantity">
+                                              <div
+                                                style={{
+                                                  padding: "2.5px 0px",
+                                                  width: "30.3951%",
+                                                }}
+                                              ></div>
+                                            </div>
+                                            <p>{status.max}</p>
+                                          </div>
+                                        );
+                                      })}
+
+                                      <div className="stats-container">
+                                        <span>Total</span>
+                                        <p>
+                                          {pokemonStats?.reduce(
+                                            (sum, { min }) => sum + min,
+                                            0
+                                          )}
+                                        </p>
+                                        <div></div>
+                                        <p>Máx.</p>
+                                      </div>
+                                    </div>
+                                    <p
+                                      style={{ marginTop: "1rem" }}
+                                      id="not-captalize"
+                                    >
+                                      Os valores <b>mínimos</b> e <b>máximos</b>{" "}
+                                      são calculados para o nível 100 do
+                                      pokémon. Os valores <b>mínimos</b> são
+                                      baseados em 0 EVs e 0 IVs, enquanto os
+                                      valores <b>máximos</b> são baseado em 252
+                                      EVs e 31 IVs.
+                                    </p>
+                                  </>
+                                );
 
                               case "evolutions":
                                 return <p>Em breve</p>;
