@@ -100,7 +100,10 @@ const Pokedex: NextPage = () => {
               type="text"
               ref={SearchBarRef}
               placeholder="Encontre seu pokémon..."
-              onChange={(e) => setSearch(e.target.value.toLowerCase())}
+              onChange={(e) => {
+                setSearch(null);
+                setSearch(e.target.value.toLowerCase());
+              }}
             />
             {search && (
               <X
@@ -264,6 +267,9 @@ const Pokedex: NextPage = () => {
             </>
           )}
           <>
+            {search && (
+              <h3 className="subtitle-kanit">Descubra mais criaturas</h3>
+            )}
             <PokedexCards>
               {pokelist
                 .sort((a, b) => a.id - b.id)

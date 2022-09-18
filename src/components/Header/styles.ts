@@ -70,10 +70,22 @@ export const HeaderContainer = styled.header`
         padding: 1rem;
         border-radius: 0.5rem;
 
+        cursor: pointer;
         position: relative;
 
+        &#trainer {
+          padding: 1rem 1.5rem;
+          background: var(--english-violet-50);
+
+          transition: 0.25s all ease;
+
+          &:hover {
+            background: var(--english-violet);
+          }
+        }
+
         @media (min-width: 900px) {
-          &:not(:last-child) {
+          &:not(#trainer):not(.user) {
             &:before {
               content: "";
               display: block;
@@ -98,16 +110,98 @@ export const HeaderContainer = styled.header`
           }
         }
 
-        &:last-child {
-          padding: 1rem 1.5rem;
-          background: var(--english-violet-50);
+        @media (max-width: 900px) {
+          text-align: center;
+          width: 100%;
 
-          transition: 0.25s all ease;
+          opacity: 0;
+          transform: translateY(100%);
 
-          &:hover {
-            background: var(--english-violet);
+          &#trainer {
+            max-width: 80%;
           }
         }
+      }
+
+      .user {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        > img {
+          width: 100%;
+          max-width: 5rem;
+          height: 100%;
+          max-height: 5rem;
+
+          object-fit: cover;
+
+          pointer-events: none;
+          user-select: none;
+
+          @media (min-width: 900px) {
+            max-width: 3rem;
+            max-height: 3rem;
+          }
+        }
+      }
+
+      .help {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        height: 100%;
+        max-height: 80px;
+
+        gap: 1rem;
+        cursor: help;
+
+        transition: 0.25s all ease;
+
+        svg {
+          width: 1.5rem;
+          height: 1.5rem;
+        }
+
+        div {
+          display: flex;
+          justify-content: center;
+          align-items: center;
+
+          gap: 0.5rem;
+        }
+
+        &:hover {
+          transform: translateY(-0.15rem);
+        }
+
+        @media (max-width: 900px) {
+          position: absolute;
+
+          bottom: 0;
+
+          width: 100%;
+          max-height: 80px;
+
+          background: var(--english-violet-50);
+
+          svg {
+            width: 1.5rem;
+            height: 1.5rem;
+          }
+
+          #help:after {
+            content: "Ajuda";
+          }
+
+          /* #health:after {
+            content: "Pokémons";
+          } */
+        }
+      }
+
+      @media (min-width: 900px) {
       }
 
       @media (max-width: 900px) {
@@ -124,9 +218,38 @@ export const HeaderContainer = styled.header`
         height: 100vh;
         width: 100%;
 
+        &:after {
+          position: absolute;
+          top: 0;
+
+          opacity: 0;
+
+          content: "";
+          background: var(--english-violet-50);
+          width: 100%;
+          height: 0;
+        }
+
         &.menu-opened {
           transform: translateY(0);
+
+          > a {
+            opacity: 1;
+            transform: translateY(0);
+
+            transition: 0.75s all ease-out;
+          }
+
+          &:after {
+            opacity: 1;
+            height: 80px;
+            transition: 0.5s all ease-out;
+          }
         }
+      }
+
+      @media (max-height: 500px) {
+        padding-top: 80px;
       }
     }
 
