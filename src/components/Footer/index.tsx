@@ -12,12 +12,12 @@ export default function Footer() {
       </a>
       <div>
         <p>
-          {actualYear} <a href="https://pizygroup.vercel.app">PIZY Group</a> ©
+          {actualYear} <a href="https://pizy.vercel.app">PIZY Group</a> ©
           Todos os direitos reservados.
         </p>
         <p>
           PIZY e PIZYMON são marcas reservadas à{" "}
-          <a href="https://pizygroup.vercel.app">PIZY Group</a>.
+          <a href="https://pizy.vercel.app">PIZY Group</a>.
         </p>
       </div>
     </FooterContainer>
