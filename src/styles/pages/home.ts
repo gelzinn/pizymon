@@ -252,6 +252,18 @@ export const Services = styled.div`
 
       pointer-events: none;
       user-select: none;
+
+      @media (min-width: 1048px) {
+        &#bigger {
+          max-width: 600px;
+          max-height: 350px;
+        }
+      }
+
+      @media (max-width: 1048px) {
+        max-width: 200px;
+        max-height: 200px;
+      }
     }
 
     > a {

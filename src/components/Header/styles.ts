@@ -64,6 +64,10 @@ export const HeaderContainer = styled.header`
       z-index: 10;
 
       > a {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
         text-decoration: none;
         color: var(--white);
 
@@ -73,7 +77,11 @@ export const HeaderContainer = styled.header`
         cursor: pointer;
         position: relative;
 
+        transition: 0.35s all ease;
+
         &#trainer {
+          max-height: 3.5rem;
+
           padding: 1rem 1.5rem;
           background: var(--english-violet-50);
 
@@ -85,6 +93,8 @@ export const HeaderContainer = styled.header`
         }
 
         @media (min-width: 900px) {
+          height: 100%;
+
           &:not(#trainer):not(.user) {
             &:before {
               content: "";
@@ -128,13 +138,16 @@ export const HeaderContainer = styled.header`
         justify-content: center;
         align-items: center;
 
+        padding: 0;
+
         > img {
           width: 100%;
-          max-width: 5rem;
+          max-width: 4rem;
           height: 100%;
-          max-height: 5rem;
+          max-height: 4rem;
 
           object-fit: cover;
+          transition: 0.25s all ease;
 
           pointer-events: none;
           user-select: none;
@@ -143,6 +156,10 @@ export const HeaderContainer = styled.header`
             max-width: 3rem;
             max-height: 3rem;
           }
+        }
+
+        &:hover > img {
+          opacity: 0.5;
         }
       }
 
@@ -172,8 +189,12 @@ export const HeaderContainer = styled.header`
           gap: 0.5rem;
         }
 
-        &:hover {
-          transform: translateY(-0.15rem);
+        @media (min-width: 900px) {
+          &:hover {
+            transform: translateY(-0.15rem);
+
+            opacity: 0.5;
+          }
         }
 
         @media (max-width: 900px) {
@@ -202,6 +223,7 @@ export const HeaderContainer = styled.header`
       }
 
       @media (min-width: 900px) {
+        height: 100%;
       }
 
       @media (max-width: 900px) {

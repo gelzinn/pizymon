@@ -4,6 +4,7 @@ import Header from "~/components/Header";
 import { Presentation, Services } from "~/styles/pages/home";
 import { Play } from "phosphor-react";
 import Link from "next/link";
+import Footer from "~/components/Footer";
 
 const Home: NextPage = () => {
   return (
@@ -37,22 +38,24 @@ const Home: NextPage = () => {
         <h1 className="title-kanit">Mais do mundo Pokémon</h1>
 
         <Services>
-          <div>
-            <img
-              src="../pokemon-assets/single_pokemon_center.png"
-              alt="Centro Pokémon"
-            />
-
+          <Link href="/">
             <div>
-              <h1 className="title-kanit">Centro Pokémon</h1>
-              <p>
-                Estruturas onde os Pokémons são cuidados para voltarem à
-                batalha.
-              </p>
-            </div>
+              <img
+                src="../pokemon-assets/single_pokemon_center.png"
+                alt="Centro Pokémon"
+              />
 
-            <a href="/">Dar uma olhada</a>
-          </div>
+              <div>
+                <h1 className="title-kanit">Centro Pokémon</h1>
+                <p>
+                  Estruturas onde os Pokémons são cuidados para voltarem à
+                  batalha.
+                </p>
+              </div>
+
+              <a href="/">Dar uma olhada</a>
+            </div>
+          </Link>
 
           <Link href="/pokedex">
             <div>
@@ -60,7 +63,27 @@ const Home: NextPage = () => {
 
               <div>
                 <h1 className="title-kanit">Pokédex</h1>
-                <p>Você pode conhecer cada criaturinha em detalhes.</p>
+                <p>Você pode conhecer cada uma das criaturinhas em detalhes.</p>
+              </div>
+
+              <a>Dar uma olhada</a>
+            </div>
+          </Link>
+
+          <Link href="/">
+            <div>
+              <img
+                id="bigger"
+                src="../eevee_evolutions.png"
+                alt="Eevee Evolutions"
+              />
+
+              <div>
+                <h1 className="title-kanit">Monte seu time</h1>
+                <p>
+                  Que tal novos companheiros para sua nova jornada como
+                  treinador?
+                </p>
               </div>
 
               <a>Dar uma olhada</a>
@@ -68,6 +91,8 @@ const Home: NextPage = () => {
           </Link>
         </Services>
       </main>
+
+      <Footer />
     </>
   );
 };
