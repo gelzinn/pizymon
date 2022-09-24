@@ -81,6 +81,8 @@ export const FooterContainer = styled.div`
       flex-direction: column;
       justify-content: center;
       align-items: center;
+      
+      text-align: center;
 
       gap: 0.5rem;
     }
