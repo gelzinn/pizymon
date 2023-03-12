@@ -95,7 +95,6 @@ const PokemonPage: NextPage = ({
 
             setEvolutionChainData(dataEvolution);
           }
-
         }
 
         getEvolutionChainData(pokemon.name);

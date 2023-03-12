@@ -53,7 +53,7 @@ export const PokemonContainer = styled.div`
 
           mask-image: linear-gradient(to top, transparent, black, transparent);
 
-          @media (min-width: 978px) {
+          @media (min-width: calc(978px + 1)) {
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
@@ -347,11 +347,12 @@ export const PokemonContainer = styled.div`
               0 -1px 0 0.5px inset var(--dark-purple);
 
             > div {
-              background: linear-gradient(
+              /* background: linear-gradient(
                 to right,
                 transparent,
                 var(--english-violet)
-              );
+              ); */
+              background: var(--english-violet);
               border-radius: 0.25rem;
             }
           }
@@ -381,7 +382,7 @@ export const PokemonContainer = styled.div`
 
   .pokemon-evolutions {
     display: flex;
-    flex: 1;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -392,11 +393,10 @@ export const PokemonContainer = styled.div`
       position: relative;
 
       display: flex;
-      flex: 1;
       justify-content: center;
       align-items: center;
 
-      padding: 1rem;
+      padding: .5rem;
 
       width: 100%;
       /* max-width: 200px; */
@@ -411,6 +411,7 @@ export const PokemonContainer = styled.div`
 
       > img {
         width: 100%;
+        max-width: 175px;
         padding: .25rem;
 
         z-index: 1;
@@ -465,6 +466,14 @@ export const PokemonContainer = styled.div`
 
         > img {
           max-width: 150px;
+        }
+      }
+    }
+
+    @media (max-width: 450px) {
+      > a {
+        > img {
+          max-width: 120px;
         }
       }
     }
