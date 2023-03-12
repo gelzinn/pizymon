@@ -399,7 +399,7 @@ export const PokemonContainer = styled.div`
       padding: 1rem;
 
       width: 100%;
-      max-width: 200px;
+      /* max-width: 200px; */
       height: 100%;
 
       border: 0.15rem solid var(--dark-purple);
