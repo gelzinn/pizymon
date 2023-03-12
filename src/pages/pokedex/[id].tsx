@@ -62,6 +62,9 @@ const PokemonPage: NextPage = ({
   const [pokemonBio, setPokemonBio] = useState("");
   const [pokemonSpecieType, setPokemonSpecieType] = useState("");
 
+  const [evolutionChainData, setEvolutionChainData] = useState<any>([]);
+  const [evolutionChain, setEvolutionChain] = useState<any>([]);
+
   useEffect(() => {
     if (pokemonData) {
       setPokemon(pokemonData);
@@ -80,8 +83,68 @@ const PokemonPage: NextPage = ({
               : Math.round((Number(resource.base_stat) * 2 + 99) * 1.1),
         }))
       );
+
+      if (pokemon?.name) {
+        const getEvolutionChainData = async (pokemonName) => {
+          const resEvolutionURL = await fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonName}/`);
+          const dataEvolutionURL = await resEvolutionURL.json();
+
+          if (dataEvolutionURL) {
+            const resEvolutionData = await fetch(dataEvolutionURL.evolution_chain.url);
+            const dataEvolution = await resEvolutionData.json();
+
+            setEvolutionChainData(dataEvolution);
+          }
+
+        }
+
+        getEvolutionChainData(pokemon.name);
+      }
     }
   }, [pokemon]);
+
+  useEffect(() => {
+    if (evolutionChainData) {
+      const getEvolutionChain = (evolutionChainData) => {
+        // const possiblyEvolutions = [
+        //   evolutionChainData?.species?.name,
+        //   evolutionChainData?.evolves_to[0]?.species?.name,
+        //   evolutionChainData?.evolves_to[0]?.evolves_to[0]?.species?.name,
+        //   evolutionChainData?.evolves_to[0]?.evolves_to[0]?.evolves_to[0]?.species?.name,
+        //   evolutionChainData?.evolves_to[0]?.evolves_to[0]?.evolves_to[0]?.evolves_to[0]?.species?.name
+        // ];
+
+        const possiblyEvolutions = [
+          evolutionChainData?.species?.url.replace("https://pokeapi.co/api/v2/pokemon-species/", "").replace("/", ""),
+          evolutionChainData?.evolves_to[0]?.species?.url.replace("https://pokeapi.co/api/v2/pokemon-species/", "").replace("/", ""),
+          evolutionChainData?.evolves_to[0]?.evolves_to[0]?.species?.url.replace("https://pokeapi.co/api/v2/pokemon-species/", "").replace("/", ""),
+          evolutionChainData?.evolves_to[0]?.evolves_to[0]?.evolves_to[0]?.species?.url.replace("https://pokeapi.co/api/v2/pokemon-species/", "").replace("/", ""),
+          evolutionChainData?.evolves_to[0]?.evolves_to[0]?.evolves_to[0]?.evolves_to[0]?.species?.url.replace("https://pokeapi.co/api/v2/pokemon-species/", "").replace("/", "")
+        ];
+
+        var removeEmptyElements = possiblyEvolutions.filter(function (el) {
+          return el != null;
+        });
+
+        setEvolutionChain(removeEmptyElements);
+      }
+
+      getEvolutionChain(evolutionChainData.chain)
+    }
+  }, [evolutionChainData]);
+
+  useEffect(() => {
+    if (evolutionChain) {
+      const getEvolutionsData = async () => {
+        const res = await fetch(
+          `https://pokeapi.co/api/v2/pokemon/${evolutionChain[0]?.toLowerCase()}`
+        );
+        const data = await res.json();
+
+        console.log(data.id)
+      }
+    }
+  }, [evolutionChain]);
 
   useEffect(() => {
     if (pokemonStatsSpeciesData) {
@@ -218,12 +281,14 @@ const PokemonPage: NextPage = ({
                         Estatísticas
                       </span>
                     )}
-                    <span
-                      className={activeTab === "evolutions" ? "selected" : null}
-                      onClick={() => setActiveTab("evolutions")}
-                    >
-                      Evoluções
-                    </span>
+                    {evolutionChain.length > 1 && (
+                      <span
+                        className={activeTab === "evolutions" ? "selected" : null}
+                        onClick={() => setActiveTab("evolutions")}
+                      >
+                        Evoluções
+                      </span>
+                    )}
                   </div>
                   <div className="page">
                     <>
@@ -400,7 +465,24 @@ const PokemonPage: NextPage = ({
                                 );
 
                               case "evolutions":
-                                return <p>Em breve</p>;
+                                if (evolutionChain && evolutionChain.length > 1) {
+                                  return (
+                                    <div className="pokemon-evolutions">
+                                      {evolutionChain.map((item) => {
+                                        return (
+                                          <a key={item} href={`./${item}`}>
+                                            <img
+                                              src={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${item.padStart(3, '0')}.png`}
+                                              alt={`Pokémon's ID ${item}`}
+                                              loading="lazy"
+                                            />
+                                            <i>{item}</i>
+                                          </a>
+                                        )
+                                      })}
+                                    </div>
+                                  )
+                                };
 
                               default:
                                 setActiveTab("biography");

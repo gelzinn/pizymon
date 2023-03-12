@@ -32,7 +32,7 @@ export default function Header() {
         <ul className={openMenu ? "menu-opened" : null}>
           <a href="/">Início</a>
           <a href="/pokedex">Pokédex</a>
-          {login && (
+          {/* {login && (
             <>
               <a href="/">Centro Pokémon</a>
               <a onClick={handleToggleLoggin} className="user">
@@ -42,7 +42,7 @@ export default function Header() {
                 />
               </a>
             </>
-          )}
+          )} */}
 
           {!login && (
             <a id="trainer" onClick={handleToggleLoggin}>

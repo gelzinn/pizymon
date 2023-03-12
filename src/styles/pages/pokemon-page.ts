@@ -378,4 +378,95 @@ export const PokemonContainer = styled.div`
       flex-direction: column;
     }
   }
+
+  .pokemon-evolutions {
+    display: flex;
+    flex: 1;
+    justify-content: center;
+    align-items: center;
+
+    height: 100%;
+    gap: .5rem;
+
+    > a {
+      position: relative;
+
+      display: flex;
+      flex: 1;
+      justify-content: center;
+      align-items: center;
+
+      padding: 1rem;
+
+      width: 100%;
+      max-width: 200px;
+      height: 100%;
+
+      border: 0.15rem solid var(--dark-purple);
+      border-radius: 1rem;
+
+      transition: 0.25s all ease;
+
+      overflow: hidden;
+
+      > img {
+        width: 100%;
+        padding: .25rem;
+
+        z-index: 1;
+        filter: saturate(200%);
+
+        transition: 0.25s all ease;
+      }
+
+      > i {
+        font-size: 10rem;
+        font-weight: 800;
+
+        text-align: center;
+        line-height: 80%;
+
+        min-width: 100%;
+
+        color: transparent;
+        -webkit-text-stroke-width: 1px;
+        -webkit-text-stroke-color: var(--english-violet);
+
+        mask-image: linear-gradient(to top, transparent, black, transparent);
+
+        position: absolute;
+        top: 50%;
+        left: 50%;
+
+        transform: translate(-50%,-50%);
+
+        @media (max-width: 978px) {
+          line-height: 100%;
+          mask-image: linear-gradient(to bottom, black, transparent);
+        }
+      }
+
+      &:hover {
+        background: var(--english-violet-50);
+
+        > img {
+          transform: scale(.95);
+        }
+      }
+    }
+
+    @media (max-width: 978px) {
+      flex-direction: column;
+      justify-content: space-between;
+
+      > a {
+        padding: .5rem;
+        max-width: unset;
+
+        > img {
+          max-width: 150px;
+        }
+      }
+    }
+  }
 `;

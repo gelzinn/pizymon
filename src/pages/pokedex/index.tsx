@@ -95,7 +95,6 @@ const Pokedex: NextPage = () => {
               SearchBarRef.current.focus();
             }}
           >
-            <MagnifyingGlass />
             <input
               type="text"
               ref={SearchBarRef}
@@ -105,7 +104,7 @@ const Pokedex: NextPage = () => {
                 setSearch(e.target.value.toLowerCase());
               }}
             />
-            {search && (
+            {search ? (
               <X
                 onClick={() => {
                   SearchBarRef.current.value = "";
@@ -113,7 +112,7 @@ const Pokedex: NextPage = () => {
                   setPokeSearched(null);
                 }}
               />
-            )}
+            ): <MagnifyingGlass />}
           </PokedexSearch>
           {search && (
             <>
