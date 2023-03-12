@@ -121,7 +121,7 @@ export const PokemonContainer = styled.div`
       }
     }
 
-    .details {
+    > .details {
       width: 100%;
       max-width: 50%;
 
@@ -396,7 +396,7 @@ export const PokemonContainer = styled.div`
       justify-content: center;
       align-items: center;
 
-      padding: .5rem;
+      padding: .5rem 2rem;
 
       width: 100%;
       /* max-width: 200px; */
@@ -404,6 +404,9 @@ export const PokemonContainer = styled.div`
 
       border: 0.15rem solid var(--dark-purple);
       border-radius: 1rem;
+      color: var(--white);
+
+      text-decoration: none;
 
       transition: 0.25s all ease;
 
@@ -418,6 +421,31 @@ export const PokemonContainer = styled.div`
         filter: saturate(200%);
 
         transition: 0.25s all ease;
+      }
+
+      .details {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: flex-end;
+
+        width: 100%;
+        height: 100%;
+
+        z-index: 1;
+
+        > span {
+          text-transform: capitalize;
+        }
+
+        ul {
+          display: flex;
+          font-size: .75rem;
+          text-transform: uppercase;
+          gap: 0.5rem;
+
+          list-style-type: none;
+        }
       }
 
       > i {
@@ -440,6 +468,8 @@ export const PokemonContainer = styled.div`
         left: 50%;
 
         transform: translate(-50%,-50%);
+
+        z-index: 0;
 
         @media (max-width: 978px) {
           line-height: 100%;
@@ -466,6 +496,10 @@ export const PokemonContainer = styled.div`
 
         > img {
           max-width: 150px;
+        }
+
+        > .details {
+          display: none;
         }
       }
     }

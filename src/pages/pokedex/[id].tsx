@@ -64,6 +64,7 @@ const PokemonPage: NextPage = ({
 
   const [evolutionChainData, setEvolutionChainData] = useState<any>([]);
   const [evolutionChain, setEvolutionChain] = useState<any>([]);
+  const [dataEvolutions, setDataEvolutions] = useState<any>([]);
 
   useEffect(() => {
     if (pokemonData) {
@@ -135,13 +136,24 @@ const PokemonPage: NextPage = ({
   useEffect(() => {
     if (evolutionChain) {
       const getEvolutionsData = async () => {
-        const res = await fetch(
-          `https://pokeapi.co/api/v2/pokemon/${evolutionChain[0]?.toLowerCase()}`
-        );
-        const data = await res.json();
+        const fetchEvolutions = (fetchUrl: string) => {
+          fetch(fetchUrl)
+          .then(response => response.json())
+          .then(data => {
+            setDataEvolutions(prev => [...prev, data])
+          })
+        };
 
-        console.log(data.id)
+        const getURLtoFetch = () => {
+          for (var i = 1; i <= evolutionChain.length; i++) {
+            fetchEvolutions(`https://pokeapi.co/api/v2/pokemon/${evolutionChain[i - 1]}`);
+          }
+        }
+
+        getURLtoFetch()
       }
+
+      getEvolutionsData()
     }
   }, [evolutionChain]);
 
@@ -467,14 +479,27 @@ const PokemonPage: NextPage = ({
                                 if (evolutionChain && evolutionChain.length > 1) {
                                   return (
                                     <div className="pokemon-evolutions">
-                                      {evolutionChain.map((item) => {
+                                      {evolutionChain.map((item, index) => {
                                         return (
-                                          <a key={item} href={`./${item}`}>
+                                          <a key={item} href={`./${dataEvolutions[index].name}`}>
                                             <img
                                               src={`https://raw.githubusercontent.com/HybridShivam/Pokemon/master/assets/images/${item.padStart(3, '0')}.png`}
                                               alt={`Pokémon's ID ${item}`}
                                               loading="lazy"
                                             />
+                                            <div className="details">
+                                              <span className="subtitle-kanit">{dataEvolutions[index].name}</span>
+                                              <ul>
+                                                {dataEvolutions[index].types &&
+                                                  dataEvolutions[index].types.map((singleType) => {
+                                                    return (
+                                                      <li key={singleType.type.name}>
+                                                        {singleType.type.name}
+                                                      </li>
+                                                    );
+                                                  })}
+                                              </ul>
+                                            </div>
                                             <i>{item}</i>
                                           </a>
                                         )
